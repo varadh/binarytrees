@@ -1,0 +1,45 @@
+//solution
+//a. find the height of the node and its parent
+//b. do a level order traversal and print nodes at the same level who doesn't share the same parent.
+
+class Height{
+  int val;
+}
+
+Node findHeightAndParent(Node root, Node n, int level, Height h){
+    if(node==null){
+        return null;
+    }
+
+    if( (root.left!=null && root.left == n) || (root.right!=null && root.right==n)){
+        h.val = level+1;
+        return root;
+    } 
+
+    Node l = findHeightAndParent(root.left, n, level+1, h);
+
+    if(l!=null){
+        return l;
+    }
+
+    return findHeightAndParent(root.right, n, level+1, h);
+}
+
+
+
+void levelOrderTraversal(Node root, Node parent, int level, int currLevel, Node tmpParentPtr ){
+    if(root==null || currLevel>level){
+        return ;
+    }
+
+    if(currLevel=level){
+        if(parent!=tmpParentPtr){
+            sout(root.data);
+        }
+        return;
+    }
+    tmpParentPtr = root;
+    levelOrderTraversal(root.left, parent, level, currLevel+1, tmpParentPtr);
+    tmpParentPtr = root;
+    levelOrderTraversal(root.right, parent, level, currLevel+1, tmpParentPtr);
+}
